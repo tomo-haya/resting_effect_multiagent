@@ -1,0 +1,18 @@
+﻿cl : コマンド ライン warning D9035: オプション 'Gm' の使用は現在推奨されていません。今後のバージョンからは削除されます。
+  multi_agent_sys.cpp
+C:\Users\Yushi Okuda\Desktop\ant_agent_model_hayakawa\agent-model\multi_agent_sys.cpp(66,17): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Yushi Okuda\Desktop\ant_agent_model_hayakawa\agent-model\multi_agent_sys.cpp(104,18): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Yushi Okuda\Desktop\ant_agent_model_hayakawa\agent-model\multi_agent_sys.cpp(265,29): warning C4477: 'fprintf' : 書式文字列 '%lf' には、型 'double' の引数が必要ですが、可変個引数 3 は型 'int' です
+C:\Users\Yushi Okuda\Desktop\ant_agent_model_hayakawa\agent-model\multi_agent_sys.cpp(265,29): warning C4477: 'fprintf' : 書式文字列 '% lf' には、型 'double' の引数が必要ですが、可変個引数 4 は型 'int' です
+C:\Users\Yushi Okuda\Desktop\ant_agent_model_hayakawa\agent-model\multi_agent_sys.cpp(265,29): warning C4477: 'fprintf' : 書式文字列 '% lf' には、型 'double' の引数が必要ですが、可変個引数 5 は型 'int' です
+C:\Users\Yushi Okuda\Desktop\ant_agent_model_hayakawa\agent-model\multi_agent_sys.cpp(265,29): warning C4477: 'fprintf' : 書式文字列 '% lf' には、型 'double' の引数が必要ですが、可変個引数 6 は型 'int' です
+C:\Users\Yushi Okuda\Desktop\ant_agent_model_hayakawa\agent-model\multi_agent_sys.cpp(265,29): warning C4477: 'fprintf' : 書式文字列 '% lf' には、型 'double' の引数が必要ですが、可変個引数 7 は型 'int' です
+C:\Users\Yushi Okuda\Desktop\ant_agent_model_hayakawa\agent-model\multi_agent_sys.cpp(265,29): warning C4477: 'fprintf' : 書式文字列 '% lf' には、型 'double' の引数が必要ですが、可変個引数 8 は型 'int' です
+C:\Users\Yushi Okuda\Desktop\ant_agent_model_hayakawa\agent-model\multi_agent_sys.cpp(376,13): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Yushi Okuda\Desktop\ant_agent_model_hayakawa\agent-model\multi_agent_sys.cpp(377,12): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Yushi Okuda\Desktop\ant_agent_model_hayakawa\agent-model\multi_agent_sys.cpp(378,14): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Yushi Okuda\Desktop\ant_agent_model_hayakawa\agent-model\multi_agent_sys.cpp(379,20): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Yushi Okuda\Desktop\ant_agent_model_hayakawa\agent-model\multi_agent_sys.cpp(380,15): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Yushi Okuda\Desktop\ant_agent_model_hayakawa\agent-model\multi_agent_sys.cpp(381,20): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\Yushi Okuda\Desktop\ant_agent_model_hayakawa\agent-model\multi_agent_sys.cpp(382,14): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  agent-model.vcxproj -> C:\Users\Yushi Okuda\Desktop\ant_agent_model_hayakawa\Debug\agent-model.exe
