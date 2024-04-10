@@ -7,14 +7,14 @@
 #endif
 
 #ifndef CASE	
-#define CASE		100//100:Proposed strategy 101:Conventional strategy
+#define CASE		101//100:Proposed strategy 101:Conventional strategy
 #endif
 
 #ifndef ANIMATION
 #define ANIMATION		1//0: no screen, 1:show screen
 #endif
 
-//////////CASE1, 4, 11, 14, 100, 101(Setting for recruiting period change)//////////
+//////////(Setting for recruiting period change)//////////
 #ifndef MIN_TIME_RECRUIT	
 #define MIN_TIME_RECRUIT	100//min recruiting period
 #endif
@@ -27,7 +27,7 @@
 #define MAX_TIME_RECRUIT	1000//max recruiting period
 #endif
 
-//////////CASE2, 100, 101(Setting for population change)//////////
+//////////(Setting for population change)//////////
 #ifndef MIN_NUM_AGENT		
 #define MIN_NUM_AGENT		70//min population
 #endif
@@ -40,7 +40,7 @@
 #define MAX_NUM_AGENT		160//max population
 #endif
 
-//////////CASE3, 100, 101(Setting for environmental change)//////////
+//////////(Setting for environmental change)//////////
 #ifndef MIN_NUM_INIT_PREY		
 #define MIN_NUM_INIT_PREY		10//min food num
 #endif
@@ -51,19 +51,6 @@
 
 #ifndef MAX_NUM_INIT_PREY		
 #define MAX_NUM_INIT_PREY		12//max food num
-#endif
-
-//////////TYPICAL//////////
-#ifndef TYPIC_TIME_RECRUIT	
-#define TYPIC_TIME_RECRUIT	100//50//300//1000 //recruitin time
-#endif
-
-#ifndef TYPIC_NUM_AGENT	
-#define TYPIC_NUM_AGENT	200 //population
-#endif
-
-#ifndef TYPIC_NUM_INIT_PREY	
-#define TYPIC_NUM_INIT_PREY	5 //food num
 #endif
 
 ///////////////////////Simulation setting///////////////////////
@@ -84,13 +71,6 @@
 #define RADIUS_N		200//Radius of resting area[cm]
 #endif
 
-#ifndef AVG_MASS		
-#define AVG_MASS	50//Average of food weight(No use)
-#endif
-
-#ifndef SD_MASS
-#define SD_MASS		0//Variance of food weight(No use)
-#endif
 
 #ifndef MAKE_INITPREY
 #define MAKE_INITPREY		true//Make environmental data
@@ -155,13 +135,6 @@
 #define MEAN_FREE_PATH_COLL	10//mean free path after collision[cm]
 #endif
 
-#ifndef LF_DIST_DESIRE	
-#define LF_DIST_DESIRE	(2*RADIUS_AGENT + 10)//Desired distance between leader and follower[cm](No use)
-#endif
-
-#ifndef WEIGHT_VEL	
-#define WEIGHT_VEL	1.0//0-1. Velocity control weight against position control
-#endif
 
 ////////////////////////////////////////////////////////////
 //State definition
@@ -181,10 +154,6 @@
 
 #ifndef PUSHING
 #define PUSHING	35
-#endif
-
-#ifndef TRANSPORTING
-#define TRANSPORTING 36
 #endif
 
 #ifndef HOMING

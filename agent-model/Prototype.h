@@ -1,15 +1,13 @@
 #include "struct.h"
 
 //Agent
-Agent agent_state_transition_rule(vector<Prey> _food, int num_food, Agent my_info, vector<Agent> _agent, int num_agent);	//èÛë‘ëJà⁄ãKë•
+Agent agent_state_transition_rule(vector<Prey> _food, int num_food, Agent my_info, vector<Agent> _agent, int num_agent);	
 Agent agent_conventional_state_transition_rule(vector<Prey> _food, int num_food, Agent my_info, vector<Agent> _agent, int num_agent);
 Agent agent_state_behavior2(vector<Prey> _food, int num_food, Agent my_info, vector<Agent> _agent, int num_agent, int i);
 
 //Behavior
 posori _follow_leader_vel(xy my_pos, xy target_speed, int my_collision, double speed);
 Agent _follow_leader_vel2(Agent my_info, xy target_speed, double speed);
-posori _follow_leader_pos(xy my_pos, xy target_pos, double speed, int my_collision);
-posori _follow_leader_posvel(xy my_pos, xy target_pos, xy target_vel, double speed, int my_collision, double weight_vel);
 food_detect judge_near_food(posori my_posori, vector<Prey> food, int num_food);
 posori food_transport_agent(xy my_pos, xy food_pos);
 Agent _return_nest(Agent my_info, double speed);

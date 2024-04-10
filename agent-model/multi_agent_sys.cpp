@@ -26,7 +26,7 @@ FILE* Result_Log;				//Log of Result
 
 double sum_transport_mass;
 int num_outside_prey;
-int state_num[8];//0:Resting, 1:Searching, 2:Pushing, 3:Transporting, 4:Homing, 5:Recruiting, 6:Leading, 7:Following
+int state_num[8];//0:Resting, 1:Searching, 2:Pushing, 4:Homing, 5:Recruiting, 6:Leading, 7:Following
 bool restart = false;
 
 void init_log()
@@ -34,44 +34,7 @@ void init_log()
 	fprintf(Result_Log, "Case rectime agent initprey n fintime num_finalprey success  obtain_total_mass  consumed_energy Rest     Search     Push     Transport     Homing     Recruit     Lead     Follow    Num.disc_food    Num.Following    Foodweight");
 	fprintf(Result_Log, "\n");
 }
-void make_initpreydata(void)//Determine initial state of food items(No use)
-{
-	double mass_position_value = AVG_MASS * num_initprey * (RADIUS_F + RADIUS_N) / 2;//(= AVG_MASS*(RADIUS_F+RADIUS_N)/2*NUM_INIT_PREY ) 
 
-	InitPrey_Log = fopen("initprey.dat", "w");//Output file name should be different from reading file.	
-	double temp_value;
-	int tempcount = 0;//For debugging
-	prey[num_initprey - 1].r0 = 0;//Even If any file is read, this initialization enables making initpreydata.
-
-	while (prey[num_initprey - 1].r0 < RADIUS_N || prey[num_initprey - 1].r0 > RADIUS_F)//Loop until the final food item is located in the range of searching area.
-	{
-		temp_value = 0;//Used for calculation of position of final food item
-		for (int i = 0;i < num_initprey;i++)
-		{
-			prey[i].theta0 = 2 * M_PI * genrand_real1();
-			double random1 = genrand_real1();
-			double random2 = genrand_real1();
-			double norm_random = sqrt(-2 * log(random1)) * cos(2 * M_PI * random2);//Box–Muller's method
-			prey[i].mass0 = AVG_MASS + SD_MASS * norm_random;//Various weight
-			//prey[i].mass0 = AVG_MASS;//Constant weight
-		}
-
-		for (int i = 0;i < num_initprey - 1;i++)
-		{
-			prey[i].r0 = RADIUS_F * (genrand_real1() * ((double)RADIUS_F - RADIUS_N) / RADIUS_F + (double)RADIUS_N / RADIUS_F);//Located randomly in the searching area
-			temp_value += prey[i].mass0 * prey[i].r0;
-		}
-		prey[num_initprey - 1].r0 = (mass_position_value - temp_value) / prey[num_initprey - 1].mass0;//The position of the final food item is determined based on mass_position_value
-		tempcount++;
-	}
-	cout << "Finish Making Init_prey_data" << " Prey:" << num_initprey << endl;
-
-	for (int i = 0;i < num_initprey;i++)
-	{
-		fprintf(InitPrey_Log, "%10f %10f %10f\n", prey[i].r0, prey[i].theta0, prey[i].mass0);
-	}
-	fclose(InitPrey_Log);
-}
 
 void make_initpreydata_weight(void)//Determine initial state of food items
 {
@@ -386,18 +349,12 @@ void idle(void)
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	switch (CASE)
 	{
-	case 1:
-	case 2:
-	case 3:
-	case 4:
 	case 100:
 		for (int i = 0; i < num_agent; i++)
 		{
 			agent[i] = agent_state_transition_rule(pastprey, num_initprey, agent[i], pastagent, num_agent);
 		}
 		break;
-	case 11:
-	case 14:
 	case 101:
 		for (int i = 0; i < num_agent; i++)
 		{
@@ -447,9 +404,6 @@ void idle(void)
 		case PUSHING_F:
 		case PUSHING:
 			state_num[2]++;
-			break;
-		case TRANSPORTING:
-			state_num[3]++;
 			break;
 		case HOMING:
 		case HOMING_F:
@@ -545,28 +499,6 @@ void idle(void)
 			{
 				switch (CASE)
 				{
-				case 1:
-					recruit_time += DIFF_TIME_RECRUIT_CHANGE;
-					break;
-				case 2:
-					num_agent += DIFF_NUM_AGENT_CHANGE;
-					make_initagentdata();
-					read_agentdata();
-					break;
-				case 3:
-					num_initprey += DIFF_NUM_INIT_PREY_CHANGE;
-					//make_initpreydata();
-					read_preydata(num_initprey);
-					break;
-				case 4:
-					recruit_time += DIFF_TIME_RECRUIT_CHANGE;
-					break;
-				case 11:
-					recruit_time += DIFF_TIME_RECRUIT_CHANGE;
-					break;
-				case 14:
-					recruit_time += DIFF_TIME_RECRUIT_CHANGE;
-					break;
 				case 100:
 					if (n % (ATTEMPT * ((MAX_TIME_RECRUIT - MIN_TIME_RECRUIT) / DIFF_TIME_RECRUIT_CHANGE + 1))  == 0)//Simulation for a certain number of prey is complete
 					{
@@ -652,7 +584,7 @@ void keyboard(unsigned char key, int x, int y)
 		glutIdleFunc(idle);
 		break;
 	case 'i': //Initial state making
-		make_initpreydata();
+		make_initpreydata_weight();
 		make_initagentdata();
 		//exit(0);
 		break;
@@ -698,24 +630,8 @@ int main(int argc, char* argv[])
 	read_agentdata();//read initialized file about agent
 	init_agent();//Initialize agent
 
-	switch (CASE)
-	{
-	case 4:
-	case 14:
-	case 100:
-	case 101:
-		if (MAKE_INITPREY == true) make_initpreydata_weight();//Making initialized file about food items
-		read_preydata_weight(num_initprey);//read initialized file about food items
-		break;
-	case 1:
-	case 2:
-	case 3:
-	case 11:
-		if (MAKE_INITPREY == true) make_initpreydata();//Making initialized file about food items
-		read_preydata(num_initprey);//read initialized file about food items
-		break;
-	}
-	
+	if (MAKE_INITPREY == true) make_initpreydata_weight();//Making initialized file about food items
+	read_preydata_weight(num_initprey);//read initialized file about food items
 	init_prey();//Initialize food items
 
 	glutMainLoop();		//Infinite loop
