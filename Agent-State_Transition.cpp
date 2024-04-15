@@ -60,30 +60,7 @@ Agent _searching2following(vector<Agent> _agent, int num_agent, Agent my_info)
 	return upd_info;
 }
 
-Agent _searching2pushinglead(vector<Prey> _food, int num_food, Agent my_info)
-{
-	Agent upd_info = my_info;
-
-	for (int j = 0; j < num_food; j++)
-	{
-		if (_food[j].transport == false)
-		{
-			double dist_robot2prey = hypot(_food[j].pos.x - my_info._posori.pos.x, _food[j].pos.y - my_info._posori.pos.y);
-
-			if (dist_robot2prey < (RADIUS_AGENT + RADIUS_FOOD + RADIUS_GRABBING))
-			{
-				upd_info.state = PUSHING_F;
-				upd_info.mem_foodpos.x = _food[j].pos.x;
-				upd_info.mem_foodpos.y = _food[j].pos.y;
-				upd_info.mem_foodID = j;
-				upd_info.time_pushinglead = 0;
-			}
-		}
-	}
-	return upd_info;
-}
-
-Agent _searching2pushing(vector<Prey> _food, int num_food, Agent my_info, vector<Agent> _agent, int num_agent)
+Agent _searching2pushing_pushingF(vector<Prey> _food, int num_food, Agent my_info, vector<Agent> _agent, int num_agent)
 {
 	Agent upd_info = my_info;
 	for (int j = 0; j < num_food; j++)
@@ -261,7 +238,7 @@ Agent _following2homing(Agent my_info, Agent leader_info)
 	return upd_info;
 }
 
-Agent _leading2pushinglead(vector<Prey> _food, int num_food, Agent my_info, vector<Agent> _agent, int num_agent)
+Agent _leading2pushingF(vector<Prey> _food, int num_food, Agent my_info, vector<Agent> _agent, int num_agent)
 {
 	Agent upd_info = my_info;
 
@@ -334,7 +311,7 @@ Agent _leading2searching(vector<Prey> _food, int num_food, Agent my_info)
 	return upd_info;
 }
 
-Agent _pushinglead2hominglead(Agent my_info, Prey food)
+Agent _pushingF2homingF(Agent my_info, Prey food)
 {
 	Agent upd_info = my_info;
 	if (my_info.time_pushinglead >= MAXTIME_PUSHINGLEAD &&
@@ -345,7 +322,7 @@ Agent _pushinglead2hominglead(Agent my_info, Prey food)
 	return upd_info;
 }
 
-Agent _hominglead2recruiting(Agent my_info)
+Agent _homingF2recruiting(Agent my_info)
 {
 	Agent upd_info = my_info;
 	double dist2nest = hypot(my_info._posori.pos.x, my_info._posori.pos.y);
@@ -359,7 +336,7 @@ Agent _hominglead2recruiting(Agent my_info)
 	return upd_info;
 }
 
-Agent _pushinglead2homing(Agent my_info, Prey food)
+Agent _pushing2homing(Agent my_info, Prey food)
 {
 	Agent upd_info = my_info;
 	if (food.inside_nest == true)
@@ -369,7 +346,7 @@ Agent _pushinglead2homing(Agent my_info, Prey food)
 	return upd_info;
 }
 
-Agent _pushinglead2searching(Agent my_info, Prey food)
+Agent _pushing2searching(Agent my_info, Prey food)
 {
 	Agent upd_info = my_info;
 	if (food.inside_nest == true)
@@ -382,7 +359,7 @@ Agent _pushinglead2searching(Agent my_info, Prey food)
 	return upd_info;
 }
 
-Agent _pushinglead2recruiting_out(Agent my_info, Prey food)
+Agent _pushingF2recruitingS(Agent my_info, Prey food)
 {
 	Agent upd_info = my_info;
 	if (my_info.time_pushinglead >= MAXTIME_PUSHINGLEAD &&
@@ -407,15 +384,15 @@ Agent agent_state_transition_rule(vector<Prey> _food, int num_food, Agent my_inf
 		upd_info = _resting2following(_agent, num_agent, upd_info);	
 		break;
 	case SEARCHING:
-		upd_info = _searching2pushing(_food, num_food, upd_info, _agent, num_agent);//pushing:pushing(F) and pushing
+		upd_info = _searching2pushing_pushingF(_food, num_food, upd_info, _agent, num_agent);//pushing:pushing(F) and pushing
 		upd_info = _searching2homing(upd_info);
 		break;
 	case PUSHING_F:
-		upd_info = _pushinglead2homing(upd_info, _food[upd_info.food_info.id]);
-		upd_info = _pushinglead2hominglead(upd_info, _food[upd_info.food_info.id]);
+		upd_info = _pushing2homing(upd_info, _food[upd_info.food_info.id]);
+		upd_info = _pushingF2homingF(upd_info, _food[upd_info.food_info.id]);
 		break;
 	case PUSHING:
-		upd_info = _pushinglead2homing(upd_info, _food[upd_info.food_info.id]);
+		upd_info = _pushing2homing(upd_info, _food[upd_info.food_info.id]);
 		break;
 	case HOMING:
 		upd_info = _homing2resting(upd_info);
@@ -429,11 +406,11 @@ Agent agent_state_transition_rule(vector<Prey> _food, int num_food, Agent my_inf
 		upd_info = _following2homing(upd_info, _agent[upd_info.leaderID]);
 		break;
 	case LEADING:
-		upd_info = _leading2pushinglead(_food, num_food, upd_info, _agent, num_agent);
+		upd_info = _leading2pushingF(_food, num_food, upd_info, _agent, num_agent);
 		upd_info = _leading2homing(_food, num_food, upd_info);
 		break;
 	case HOMING_F:
-		upd_info = _hominglead2recruiting(upd_info);
+		upd_info = _homingF2recruiting(upd_info);
 		break;
 	default:
 		break;
@@ -447,15 +424,15 @@ Agent agent_conventional_state_transition_rule(vector<Prey> _food, int num_food,
 	switch (my_info.state)
 	{
 	case SEARCHING:
-		upd_info = _searching2pushing(_food, num_food, upd_info, _agent, num_agent);
+		upd_info = _searching2pushing_pushingF(_food, num_food, upd_info, _agent, num_agent);
 		upd_info = _searching2following(_agent, num_agent, upd_info);
 		break;
 	case PUSHING_F:
-		upd_info = _pushinglead2searching(upd_info, _food[upd_info.food_info.id]);
-		upd_info = _pushinglead2recruiting_out(upd_info, _food[upd_info.food_info.id]);
+		upd_info = _pushing2searching(upd_info, _food[upd_info.food_info.id]);
+		upd_info = _pushingF2recruitingS(upd_info, _food[upd_info.food_info.id]);
 		break;
 	case PUSHING:
-		upd_info = _pushinglead2searching(upd_info, _food[upd_info.food_info.id]);
+		upd_info = _pushing2searching(upd_info, _food[upd_info.food_info.id]);
 		break;
 	case RECRUITING_S:
 		upd_info = _recruiting2leading(upd_info);
@@ -465,7 +442,7 @@ Agent agent_conventional_state_transition_rule(vector<Prey> _food, int num_food,
 		upd_info = _following2searching2(upd_info, _agent[upd_info.leaderID]);
 		break;
 	case LEADING:
-		upd_info = _leading2pushinglead(_food, num_food, upd_info, _agent, num_agent);
+		upd_info = _leading2pushingF(_food, num_food, upd_info, _agent, num_agent);
 		upd_info = _leading2searching(_food, num_food, upd_info);
 		break;
 	default:
