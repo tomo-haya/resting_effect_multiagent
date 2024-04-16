@@ -1,4 +1,4 @@
-extern int step;		//ステップ数の表示
+extern int step;		//Step num
 
 extern int t;
 extern double pasttime;

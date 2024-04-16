@@ -51,7 +51,7 @@ Agent agent_state_behavior2(vector<Prey> _food, int num_food, Agent my_info, vec
 	case RECRUITING:
 		upd_info.consume_energy++;
 		upd_info = _nest_random_walk(upd_info, RECRUIT_SPEED);
-		upd_info.time_recruiting += DT;	//リクルート時間を追加する
+		upd_info.time_recruiting += DT;	//Recruiting time is added
 		break;
 	case FOLLOWING:
 		upd_info.consume_energy++;
@@ -84,7 +84,7 @@ Agent agent_state_behavior2(vector<Prey> _food, int num_food, Agent my_info, vec
 	case RECRUITING_S:
 		upd_info.consume_energy++;
 		upd_info = _searcharea_random_walk(upd_info, RECRUIT_SPEED);
-		upd_info.time_recruiting += DT;	//リクルート時間を追加する
+		upd_info.time_recruiting += DT;	//Recruiting time is added
 		break;
 	default:
 		break;
