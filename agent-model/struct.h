@@ -25,7 +25,7 @@ public:
 
 //=============================================================//
 //name:Agent
-//description:アリの内部状態をすべて記憶する
+//description:All internal states of each robot is memorized
 /*!
 */
 //==============================================================//
@@ -36,7 +36,7 @@ public:
 		initialize_agent();
 	};
 
-	void initialize_agent(void)//各状態のリセット
+	void initialize_agent(void)//reset
 	{
 		time_searching = 0;
 		time_resting = 0;
@@ -49,39 +49,34 @@ public:
 	posori _posori;
 	xy vel;
 	xy mem_foodpos;
-	int state;					//内部状態		どうなっているかは「Agent_State_Behavior.cpp」参照
-	double time_searching;			//探索時間(餌が見つかっていない期間)[sec]
-	double time_resting;			//休息時間[sec]
-	double time_pushinglead;		//followerが全てpushingに状態遷移するまでの同期用
-	double time_recruiting;		//リクルートした時間
-	int maxtime_rest;			//各ロボットごとに最大休息時間を定義
-	bool near_food;				//searching state内の行動を決定
+	int state;						//State
+	double time_searching;			//Searching time[sec]
+	double time_resting;			//Resting time[sec]
+	double time_pushinglead;		//Pushing time[sec]
+	double time_recruiting;			//Recruiting time[sec]
+	int maxtime_rest;				//MAX_Resting time[sec]
+	bool near_food;					//determine behaviro in searching state
 	int leaderID;
-	double dist_straight;					//現在の直進した距離(平均自由工程を考慮した際に使用)
+	double dist_straight;					//Used for mean free path
 	int consume_energy;
 	int collision;
 	int col_foodID;//Food ID with collision
-	int mem_foodID;//Food ID with collision
+	int mem_foodID;
 	food_detect food_info;
 };
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//		餌に関する構造体
+//		Food
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 //=============================================================//
 //name:Prey
-//description:各餌に関する情報を記憶する
+//description:Information for each food item
 /*!
-*	@x,y				餌の位置
-*	@grid_x,grid_y		グリッドにより表される餌の位置
-*	@dx,dy				餌の位置の時間差分
-*	@mass				餌の重量
-*	@state				餌の状態
-*	@internal_nest		巣の内部かどうか
-*	@agent				どのエージェントに運搬されているか
+*	@x,y				Position
+*	@mass				Mass
 */
 //==============================================================//
 
@@ -90,28 +85,16 @@ public:
 	xy pos;
 	xy vel;//velocity of Leader is used by follower
 	double mass;
-	double r0, theta0;//読み込んだ初期状態
+	double r0, theta0;//Read initial state
 	double mass0;
-	bool transport;//初期位置から動いたかどうか(動いた餌はロボットに発見されない)
-	bool inside_nest;//巣内に運搬されたかどうか
+	bool transport;//Move from initial position or not
+	bool inside_nest;//Transport to the resting area or not
 	int num_grabbing;
-	int collision;//food-food collision
-	int num_found;//Searchingロボットから発見された回数
-	int num_recruit;//動員回数
-	int transport_time;//発見されてから運ばれるまでの時間
-	int find_time;//最初に発見された時間
-	double recruit_spending;		//発見したロボットがリクルートにかけた総時間
-	int recruit_count;			//発見したロボットがリクルートした回数
-	int recruit_agentnum;			//発見したロボットがリクルートしたロボット数
-	int first_agentID;		//最初に発見したロボットID
-	int firstID_recruit_count;			//最初に発見したロボットがリクルートした回数
-	int num_recruit_success;//Followingロボットを餌に連れてきたロボット数
-	int recruit_success_ID[100];//Followingロボットを餌に連れてきたロボットID
+	int collision;//food-food collision		
 };
 
 
 
-//配列（実計算）
 
 extern vector<Prey> prey;
 extern vector<Prey> pastprey;
