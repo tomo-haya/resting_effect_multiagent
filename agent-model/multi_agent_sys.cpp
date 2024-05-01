@@ -323,7 +323,7 @@ void collision_check(vector<Agent> _agent, vector<Agent> _pastagent, int num_age
 	}
 	for (int i = 0; i < num_food; i++)
 	{
-		for (int j = 0; j < num_food; j++)//robot-food collision
+		for (int j = 0; j < num_food; j++)//food-food collision
 		{
 			if (i != j)
 			{
