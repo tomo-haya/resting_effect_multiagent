@@ -179,7 +179,7 @@ Prey update_food_info(vector<Agent> _agent, Prey food_info, int num_food, int nu
 			if (_agent[i].food_info.id == food_id) upd_food.num_grabbing++;
 		}
 	}
-	if (hypot(upd_food.pos.x, upd_food.pos.y) > RADIUS_N)//Food is outside the nest
+	if (hypot(upd_food.pos.x, upd_food.pos.y) >= RADIUS_N)//Food is outside the nest
 	{
 		if (upd_food.num_grabbing >= upd_food.mass)
 		{
