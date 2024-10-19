@@ -217,7 +217,7 @@ Agent _recruiting2leading(Agent my_info)
 {
 	Agent upd_info = my_info;
 
-	if (my_info.time_recruiting >= recruit_time) //recruiting time is finished
+	if (my_info.time_recruiting > recruit_time) //recruiting time is finished
 	{
 		upd_info.state = LEADING;
 	}
@@ -314,7 +314,7 @@ Agent _leading2searching(vector<Prey> _food, int num_food, Agent my_info)
 Agent _pushingF2homingF(Agent my_info, Prey food)
 {
 	Agent upd_info = my_info;
-	if (my_info.time_pushinglead >= MAXTIME_PUSHINGLEAD &&
+	if (my_info.time_pushinglead > MAXTIME_PUSHINGLEAD &&
 		food.transport == false)
 	{
 		upd_info.state = HOMING_F;
@@ -362,7 +362,7 @@ Agent _pushing2searching(Agent my_info, Prey food)
 Agent _pushingF2recruitingS(Agent my_info, Prey food)
 {
 	Agent upd_info = my_info;
-	if (my_info.time_pushinglead >= MAXTIME_PUSHINGLEAD &&
+	if (my_info.time_pushinglead > MAXTIME_PUSHINGLEAD &&
 		food.transport == false)
 	{
 		upd_info.state = RECRUITING_S;
