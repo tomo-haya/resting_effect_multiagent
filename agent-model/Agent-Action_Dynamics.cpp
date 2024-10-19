@@ -180,8 +180,8 @@ Agent _searcharea_random_walk(Agent my_info, double speed)
 {
 	Agent upd_info = my_info;
 
-	if ((upd_info.dist_straight >= MEAN_FREE_PATH && hypot(upd_info._posori.pos.x, upd_info._posori.pos.y) > RADIUS_N) ||//move sufficiently at the searching area
-		(hypot(upd_info._posori.pos.x, upd_info._posori.pos.y) > RADIUS_N &&
+	if ((upd_info.dist_straight >= MEAN_FREE_PATH && hypot(upd_info._posori.pos.x, upd_info._posori.pos.y) >= RADIUS_N) ||//move sufficiently at the searching area
+		(hypot(upd_info._posori.pos.x, upd_info._posori.pos.y) >= RADIUS_N &&
 		hypot(upd_info._posori.pos.x + speed * DT * cos(upd_info._posori.ori), upd_info._posori.pos.y + speed * DT * sin(upd_info._posori.ori)) < RADIUS_N) ||//Enters the resting area in the current orientation
 		upd_info.collision == 1 || upd_info.collision == 2 || upd_info.collision == 3 || upd_info.collision == 4)//collision
 	{
@@ -190,7 +190,7 @@ Agent _searcharea_random_walk(Agent my_info, double speed)
 	}
 	upd_info.dist_straight += speed * DT;
 
-	if (hypot(upd_info._posori.pos.x, upd_info._posori.pos.y) > RADIUS_N &&
+	if (hypot(upd_info._posori.pos.x, upd_info._posori.pos.y) >= RADIUS_N &&
 		hypot(upd_info._posori.pos.x + speed * DT * cos(upd_info._posori.ori), upd_info._posori.pos.y + speed * DT * sin(upd_info._posori.ori)) < RADIUS_N)
 	{//If enters the resting area, then position is not updated
 		//upd_info._posori.pos = upd_info._posori.pos;
@@ -208,7 +208,7 @@ Agent _nest_random_walk(Agent my_info, double speed)
 	Agent upd_info = my_info;
 
 	if (upd_info.dist_straight >= MEAN_FREE_PATH ||//sufficiently move
-		hypot(upd_info._posori.pos.x + speed * DT * cos(upd_info._posori.ori), upd_info._posori.pos.y + speed * DT * sin(upd_info._posori.ori)) > RADIUS_N ||//enters the searching area by the current orientation
+		hypot(upd_info._posori.pos.x + speed * DT * cos(upd_info._posori.ori), upd_info._posori.pos.y + speed * DT * sin(upd_info._posori.ori)) >= RADIUS_N ||//enters the searching area by the current orientation
 		upd_info.collision == 1 || upd_info.collision == 2 || upd_info.collision == 3 || upd_info.collision == 4)
 	{
 		upd_info._posori.ori = 2 * M_PI * genrand_real1();		//orientation is randomly determined
@@ -216,7 +216,7 @@ Agent _nest_random_walk(Agent my_info, double speed)
 	}
 	upd_info.dist_straight += speed * DT;
 
-	if (hypot(upd_info._posori.pos.x + speed * DT * cos(upd_info._posori.ori), upd_info._posori.pos.y + speed * DT * sin(upd_info._posori.ori)) > RADIUS_N)
+	if (hypot(upd_info._posori.pos.x + speed * DT * cos(upd_info._posori.ori), upd_info._posori.pos.y + speed * DT * sin(upd_info._posori.ori)) >= RADIUS_N)
 	{//If enters the searching area, then position is not updated
 		upd_info._posori.pos.x += 0;
 		upd_info._posori.pos.y += 0;
