@@ -153,7 +153,7 @@ Agent _following2searching(Agent my_info, Agent leader_info)
 	Agent upd_info = my_info;
 	double dist2robot = hypot(leader_info._posori.pos.x - my_info._posori.pos.x, leader_info._posori.pos.y - my_info._posori.pos.y);//calculate robot-robot distance
 	if ((leader_info.state == PUSHING_F) && //leader is in pushing
-		dist2robot <= (RADIUS_SENSOR + RADIUS_AGENT))//leader is in sensing area
+		dist2robot < (RADIUS_SENSOR + RADIUS_AGENT))//leader is in sensing area
 	{
 		upd_info.state = SEARCHING;
 		upd_info._posori.ori = 2 * M_PI * genrand_real1();		//orientation is randomly determined
@@ -169,7 +169,7 @@ Agent _following2searching2(Agent my_info, Agent leader_info)
 	Agent upd_info = my_info;
 	double dist2robot = hypot(leader_info._posori.pos.x - my_info._posori.pos.x, leader_info._posori.pos.y - my_info._posori.pos.y);//calculate robot-robot distance
 	if ((leader_info.state == PUSHING_F) && //leader is in pushing
-		dist2robot <= (RADIUS_SENSOR + RADIUS_AGENT))//leader is in sensing area
+		dist2robot < (RADIUS_SENSOR + RADIUS_AGENT))//leader is in sensing area
 	{
 		upd_info.state = SEARCHING;
 		upd_info._posori.ori = 2 * M_PI * genrand_real1();		//orientation is randomly determined
@@ -178,8 +178,8 @@ Agent _following2searching2(Agent my_info, Agent leader_info)
 	}
 
 	if (((leader_info.state == SEARCHING) && //leader is in searching
-		dist2robot <= (RADIUS_SENSOR + RADIUS_AGENT)) || //leader is in sensing area
-		dist2robot > (RADIUS_SENSOR + RADIUS_AGENT))//lost leader
+		dist2robot < (RADIUS_SENSOR + RADIUS_AGENT)) || //leader is in sensing area
+		dist2robot >= (RADIUS_SENSOR + RADIUS_AGENT))//lost leader
 	{
 		upd_info.state = SEARCHING;
 		upd_info._posori.ori = 2 * M_PI * genrand_real1();		//orientation is randomly determined
