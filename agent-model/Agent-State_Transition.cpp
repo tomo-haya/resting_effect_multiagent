@@ -229,8 +229,8 @@ Agent _following2homing(Agent my_info, Agent leader_info)
 	Agent upd_info = my_info;
 	double dist2robot = hypot(leader_info._posori.pos.x - my_info._posori.pos.x, leader_info._posori.pos.y - my_info._posori.pos.y);//calculate robot-robot distance
 	if (((leader_info.state == HOMING || leader_info.state == HOMING_F) && //leader is in homing
-		dist2robot <= (RADIUS_SENSOR + RADIUS_AGENT)) || //leader is in sensing area
-		dist2robot > (RADIUS_SENSOR + RADIUS_AGENT))//lost leader
+		dist2robot < (RADIUS_SENSOR + RADIUS_AGENT)) || //leader is in sensing area
+		dist2robot >= (RADIUS_SENSOR + RADIUS_AGENT))//lost leader
 	{
 		upd_info.state = HOMING;
 	}
